@@ -1,0 +1,15 @@
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job1.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job2.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job3.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job4.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job5.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job6.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job7.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job8.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job9.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job10.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job11.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job12.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job13.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job14.root
+/reg/neh/home/khegazy/analysis/tumblingN2O/UED/output/data/scanLegendres/job15.root

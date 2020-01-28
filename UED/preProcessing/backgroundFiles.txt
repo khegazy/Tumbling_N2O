@@ -1,0 +1,9 @@
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image10_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image2_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image3_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image4_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image5_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image6_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image7_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image8_frame0.png
+/reg/d/psdm/amo/amoi0314/scratch/UED_tumbling/converted/20150904/N2O/background/scan32_L1/image9_frame0.png
