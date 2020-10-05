@@ -604,21 +604,27 @@ int main(int argc, char* argv[]) {
     }
     plt.print1d(tst, "testL2plot");
 
+    std::vector< std::vector< std::vector<double> > > lgndr_std(Nlg);
     std::vector< std::vector< std::vector<double> > > lgndr_sem(Nlg);
     for (int ilg=0; ilg<Nlg; ilg++) {
+      lgndr_std[ilg].resize(lgndrs[ilg].size());
       lgndr_sem[ilg].resize(lgndrs[ilg].size());
       for (ir=0; ir<(int)lgndrs[ilg].size(); ir++) {
+        lgndr_std[ilg][ir].resize(lgndrs[ilg][ir].size(), 0);
         lgndr_sem[ilg][ir].resize(lgndrs[ilg][ir].size(), 0);
         for (it=0; it<(int)lgndrs[ilg][ir].size(); it++) {
-          lgndr_sem[ilg][ir][it] = 0;
+          lgndr_std[ilg][ir][it] = 0;
           double norm = 0;
           for (uint i=0; i<lgndr_vals[ilg][ir][it].size(); i++) {
-            lgndr_sem[ilg][ir][it] += lgndr_scales[0][ir][it][i]
+            lgndr_std[ilg][ir][it] += lgndr_scales[0][ir][it][i]
                 *std::pow(lgndr_vals[ilg][ir][it][i] - lgndrs[ilg][ir][it], 2);
             norm += lgndr_scales[0][ir][it][i];
           }
-          lgndr_sem[ilg][ir][it] /= norm;
+          lgndr_std[ilg][ir][it] /= norm;
+          lgndr_std[ilg][ir][it] *= lgndr_vals[ilg][ir][it].size()/(lgndr_vals[ilg][ir][it].size()-1);
+          lgndr_sem[ilg][ir][it] = lgndr_std[ilg][ir][it];
           lgndr_sem[ilg][ir][it] /= lgndr_vals[ilg][ir][it].size();
+          lgndr_std[ilg][ir][it] = std::sqrt(lgndr_std[ilg][ir][it]);
           lgndr_sem[ilg][ir][it] = std::sqrt(lgndr_sem[ilg][ir][it]);
         }
       }
@@ -626,9 +632,15 @@ int main(int argc, char* argv[]) {
 
     save::saveDat<double>(lgndr_sem, 
         "./output/data/legendre_coefficient_SEM["
-        + to_string(lgndr_sem.size()) + ","
-        + to_string(lgndr_sem[0].size()) + ","
-        + to_string(lgndr_sem[0][0].size()) + "].dat");
+        + to_string(lgndr_std.size()) + ","
+        + to_string(lgndr_std[0].size()) + ","
+        + to_string(lgndr_std[0][0].size()) + "].dat");
+ 
+    save::saveDat<double>(lgndr_std, 
+        "./output/data/legendre_coefficient_STD["
+        + to_string(lgndr_std.size()) + ","
+        + to_string(lgndr_std[0].size()) + ","
+        + to_string(lgndr_std[0][0].size()) + "].dat");
  
   }
 

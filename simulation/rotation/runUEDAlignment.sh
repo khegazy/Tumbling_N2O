@@ -10,12 +10,19 @@ if [ ! -z "$1" ]; then
   INDEX=${1}
 fi
 
+if [ ! -z "$2" ]; then
+  BASESPDF=${2}
+else
+  BASESPDF=1
+fi
+
 
 #SAMPLESTEP=0.2575406
 SAMPLESTEP=0.1
 #STARTSAMPLETIME=315.914
 #STARTSAMPLETIME=317.2726218
-STARTSAMPLETIME=316.114
+#STARTSAMPLETIME=316.114
+STARTSAMPLETIME=316.2
 SAMPLETIME=`echo $STARTSAMPLETIME + $INDEX \* $SAMPLESTEP |bc`                    #ps
 
 
@@ -27,8 +34,6 @@ if [ ! -z "$1" ]; then
   OUTPUTFILE=${1}
 fi
 
-#if [ ! -f ${FILETORUN} ]; then
-#if [ "${OUTPUTFILE}" -eq "runoncluster" ]; then
 if [ ${CLUSTER} -eq 1 ]; then
   echo "RUNNING ON CLUSTER"
 
@@ -47,4 +52,11 @@ fi
 
 
 #./${FILETORUN} ${SAMPLETIME} -Ofile ${OUTPUTFILE} -Odir ${OUTPUTDIR} 
-./${FILETORUN} -SampleTime ${SAMPLETIME}
+if [ ${BASESPDF} -eq 1 ]; then
+  ./${FILETORUN} -Exp "UED" -SampleTime ${SAMPLETIME} -PDForBases ${BASESPDF}
+elif [ ${BASESPDF} -eq 0 ]; then
+  ./${FILETORUN} -Exp "UED" -PDForBases ${BASESPDF}
+else
+  echo "Cannot handle BASESPDF value of "${BASESPDF}
+  exit
+fi

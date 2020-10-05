@@ -1,3 +1,4 @@
+#include <chrono>
 #include "/reg/neh/home/khegazy/baseTools/simulation/diffractionSimulation/simulationTools/atomClass.h"
 #include "/reg/neh/home/khegazy/baseTools/simulation/diffractionSimulation/simulationTools/moleculeClass.h"
 #include "/reg/neh/home/khegazy/baseTools/simulation/diffractionSimulation/simulationTools/molEnsembleMC.h"
@@ -35,7 +36,8 @@ int main(int argc, char* argv[]) {
       else if (strcmp(argv[iarg],"-Time")==0) {
         std::string time_(argv[iarg+1]);
         time = time_;
-        pdfFile = "/reg/d/psdm/amo/amoi0314/scratch/anglePDFs/UED/anglePDFs_Time-"
+        //pdfFile = "/reg/d/psdm/amo/amoi0314/scratch/anglePDFs/UED/anglePDFs_Time-"
+        pdfFile = "/reg/ued/ana/scratch/n2o/alignmentPDFs/UED/anglePDFs_Time-"
           + time + "_ThetaBins-200_PhiBins-200.root";
       }
       else {
@@ -47,7 +49,12 @@ int main(int argc, char* argv[]) {
 
   cout << "\n\nINFO: Number of molecules is now " << Nmols << "!!!\n";
   cout << "INFO: Using pdf: " << pdfFile << "!!!\n";
-
+  
+  double elEnergy = 3.7e6;
+  double lambda = 2*PI*C_AU/sqrt(pow(elEnergy*eV_to_au + C_AU*C_AU,2) - pow(C_AU,4)); //au
+  lambda /= angs_to_au;  // angs
+  double k0 = 2*PI/lambda;
+  cout<<"lambda/k0: "<<lambda<<"  "<<k0<<endl;
 
   MOLENSEMBLEMCclass n2oMC(seed, "N2O.xyz", pdfFile.c_str(),"thetaPhiPDF");
 
@@ -61,6 +68,8 @@ int main(int argc, char* argv[]) {
   n2oMC.useOrientationMC = true;
   n2oMC.orientationPDF = "thetaPhiPDF";
 
+  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+  std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
   n2oMC.makeMolEnsemble();
 
@@ -72,6 +81,7 @@ int main(int argc, char* argv[]) {
   DIFFRACTIONclass diffP("name", &n2oMC, 14.1207, 5, 4, 3.7e6, ipix,
         "/reg/neh/home5/khegazy/baseTools/simulation/scatteringAmplitudes/3.7MeV/");
 
+  cout<<"Starting diffraction pattern calculation."<<endl;
   diffP.diffPatternCalc();
   /*
   for (uint ir=0; ir<diffP.diffMolPattern.size(); ir++) {
@@ -84,6 +94,9 @@ int main(int argc, char* argv[]) {
   }
   */
 
+  std::cout << "Time difference = " 
+      << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() 
+      << "[s]" << std::endl;
 
   // Rotating the image PI/2
   diffP.diffPattern = imgProc::imgRotatePId2(diffP.diffPattern);
@@ -92,15 +105,18 @@ int main(int argc, char* argv[]) {
 
   if (time.compare("null") != 0) {
     fileName += "_time-" + time;
+    cout<<"SAVING HERE"<<endl;
     save::saveDat<double>(
         diffP.diffMolPattern,
-        "/reg/d/psdm/amo/amoi0314/scratch/diffPatterns/molDiff_time-"
+        //"/reg/d/psdm/amo/amoi0314/scratch/diffPatterns/molDiff_time-"
+        "/reg/ued/ana/scratch/n2o/diffPatterns/molDiff_time-"
         + time + "_bins["
         + to_string(diffP.diffMolPattern.size()) + ","
         + to_string(diffP.diffMolPattern[0].size()) + "].dat");
     save::saveDat<double>(
         diffP.diffAtmPattern,
-        "/reg/d/psdm/amo/amoi0314/scratch/diffPatterns/atmDiff_time-"
+        //"/reg/d/psdm/amo/amoi0314/scratch/diffPatterns/atmDiff_time-"
+        "/reg/ued/ana/scratch/n2o/diffPatterns/atmDiff_time-"
         + time + "_bins["
         + to_string(diffP.diffAtmPattern.size()) + ","
         + to_string(diffP.diffMolPattern[0].size()) + "].dat");

@@ -6,18 +6,20 @@ MAINDIR=/reg/neh/home/khegazy/analysis/tumblingN2O/simulation/rotation
 
 
 STARTTEMP=30.0
-STEPTEMP=0.5
-ENDTEMP=70.0
-NTEMPS=80
+STEPTEMP=1.0
+ENDTEMP=150.0
+NTEMPS=3
+#121
+#25
 
-STARTINTS=0.25
-STEPINTS=0.25
+STARTINTS=0.5
+STEPINTS=0.1
 ENDINTS=10.0
-NINTS=40
+NINTS=96
 
 STARTTIME=315
 ENDTIME=321
-SAMPLESTEP=0.1
+SAMPLESTEP=0.01
 
 OUTPUTDIR=/reg/neh/home/khegazy/analysis/tumblingN2O/simulation/rotation/output/UEDscanTmpInts/
 
@@ -45,7 +47,7 @@ until [ $TCNT -gt $NTEMPS ]; do
   ICNT=0
   INTS=${STARTINTS}
   until [ $ICNT -gt $NINTS ]; do
-    bsub -q psanaq -o "../logs/output_"${TEMP}"_"${INTS}".log" ./${FILETORUN} -Temp ${TEMP} -Ints ${INTS} -StartTime ${STARTTIME} -EndTime ${ENDTIME} -SampleStep ${SAMPLESTEP}
+    bsub -q psanaq -o "../logs/output_"${TEMP}"_"${INTS}".log" ./${FILETORUN} -Exp "UED" -Temp ${TEMP} -Ints ${INTS} -StartTime ${STARTTIME} -EndTime ${ENDTIME} -SampleStep ${SAMPLESTEP} -PDForBases 0
     echo $TEMP"  "$INTS
     INTS=`echo $INTS + $STEPINTS |bc`
     ICNT=$((ICNT + 1))

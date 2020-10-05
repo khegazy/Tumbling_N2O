@@ -7,7 +7,7 @@ COPYPREF=n2oDiffSim
 XYZFILE=N2O.xyz
 
 if [ -z "$1" ]; then
-  echo "ERROR SUBMITTING JOBS!!!   Must give output directory and number of jobs"
+  echo "ERROR SUBMITTING JOBS!!!   Must give the number of jobs"
   exit
 fi
 
@@ -48,7 +48,7 @@ until [ $job -gt $NJOBS ]; do
   else
     sleep 2
     #bsub -W 100:10 -q psanaq -o "../logs/output"${job}".log" ./${FILETORUN} ${job}
-    bsub -q psanaq -o "../logs/output"${job}".log" ./${FILETORUN} ${job}
+    bsub -q psanaq -W 6000 -o "../logs/output"${job}".log" ./${FILETORUN} ${job}
   fi
   job=$((job + 1))
 done
